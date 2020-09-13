@@ -7,30 +7,40 @@ import {
 import Cartao from './Cartao';
 
 const PrevisaoItem = (props) => {
-    return (
-        <Cartao estilos={styles.cartao}>
-            <View style={styles.tela}>
-                <Image
-                    style={styles.imagem}
-                    source={
-                        {
-                            uri: "https://openweathermap.org/img/wn/" + props.previsao.weather[0].icon + ".png"
+
+    if (props.previsao != "") {
+        
+        return (
+            <Cartao estilos={styles.cartao}>
+                <View style={styles.tela}>
+                    <Image
+                        style={styles.imagem}
+                        source={
+                            {
+                                uri: "https://openweathermap.org/img/wn/" + props.previsao.list[0].weather[0].icon + ".png"
+                            }
                         }
-                    }
-                />
-                <View>
-                    <View style={styles.primeiraLinha}>
-                        <Text>{new Date(props.previsao.dt * 1000).toLocaleTimeString()}
-                        - {props.previsao.weather[0].description}</Text>
+                    />
+                    <View>
+                        <View style={styles.primeiraLinha}>
+                            <Text>Nascer do Sol: {new Date(props.previsao.city.sunrise * 1000).toLocaleTimeString()}</Text>
+                            <Text>Pôr do Sol: {new Date(props.previsao.city.sunset * 1000).toLocaleTimeString()} </Text>
+                        </View>
+                        <View style = {styles.segundaLinha}>
+                            <Text>Sensação Termica: {props.previsao.list[0].main.feels_like + "\u00B0C"}</Text>
+                        </View>
                     </View>
-                    <View style={styles.segundaLinha}>
-                        <Text style={styles.valor}>Min:{props.previsao.main.temp_min + "\u00B0"}</Text>
-                        <Text style={styles.valor}>Min:{props.previsao.main.temp_max + "\u00B0"}</Text>
-                        <Text style={styles.valor}>Min:{props.previsao.main.humidity}%</Text>
-                    </View>
+    
                 </View>
-            </View>
-        </Cartao>
+            </Cartao>
+        )
+
+    }
+
+    else return (
+        <View style = {styles.none}>
+            <Text >Nenhuma Cidade Inserida</Text>
+        </View>
     )
 }
 
@@ -51,16 +61,20 @@ const styles = StyleSheet.create({
 
     primeiraLinha: {
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'column'
     },
 
     segundaLinha: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 4,
         borderTopWidth: 1,
         borderTopColor: "#DDD"
+    },
+
+    none: {
+        alignItems: "center"
     }
 
 })

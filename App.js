@@ -17,6 +17,8 @@ export default function App() {
 
   const apiKey = "106ef2f5efca972629c768cfd89a6816"
 
+  // const apiKey = "2484cdd300b2f15e8ec0d8d9bff9f955"
+
 
   const obterPrevisoes = () => {
     setPrevisoes([]);
@@ -24,7 +26,7 @@ export default function App() {
     fetch(target)
     .then( (dados) => dados.json())
     .then( (dados) => {
-      setPrevisoes(dados["list"])
+      setPrevisoes(dados)
       Keyboard.dismiss()
     });
   }
@@ -45,15 +47,16 @@ export default function App() {
         />
       </View>
 
-      <FlatList 
-        data={previsoes}
-        renderItem={
-          previsao => (
-            <PrevisaoItem previsao = {previsao.item} />
-          )
 
-        }
-      />
+      <PrevisaoItem previsao = {previsoes} />
+      {/* <FlatList 
+        data = {previsoes}
+        renderItem = {
+          previsao => (
+            <PrevisaoItem previsao = {previsao.item}/>
+          )
+        } 
+      /> */}
     
     </View>
   );
